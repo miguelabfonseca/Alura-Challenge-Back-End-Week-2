@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiVideoController;
-use App\Http\Controllers\CategoriasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +14,6 @@ use App\Http\Controllers\CategoriasController;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
