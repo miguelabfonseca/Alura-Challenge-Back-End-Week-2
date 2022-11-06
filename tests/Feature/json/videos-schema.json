@@ -1,0 +1,41 @@
+[{
+	"id": 1,
+	"categoriaId": 1,
+	"titulo": "Criar API Rest",
+	"descricao": "Como criar e testar e consumir uma api rest.",
+	"url": "www.youtube.com\/21312",
+	"created_at": "2022-11-01T10:36:48.000000Z",
+	"updated_at": "2022-11-01T10:36:48.000000Z"
+}, {
+	"id": 2,
+	"categoriaId": 2,
+	"titulo": "Criar aplica\u00e7\u00e3o Laravel",
+	"descricao": "Como criar um projecto em laravel a partir do 0",
+	"url": "www.youtube.com\/laravell",
+	"created_at": "2022-11-01T10:37:29.000000Z",
+	"updated_at": "2022-11-01T10:37:30.000000Z"
+}, {
+	"id": 3,
+	"categoriaId": 2,
+	"titulo": "Como criar um controlador Laravel.",
+	"descricao": "Como criar um controlador Laravel, as suas propriadades e a\u00e7\u00f5es.",
+	"url": "www.youtube.com\/vdeo1",
+	"created_at": "2022-11-01T10:52:34.000000Z",
+	"updated_at": "2022-11-01T10:52:34.000000Z"
+}, {
+	"id": 4,
+	"categoriaId": 1,
+	"titulo": "Como criar uma migration no laravel.",
+	"descricao": "Como criar uma migration no Laravel, como definir a base de dados e criar os campos a partir das migrations.",
+	"url": "http:\/\/www.youtube.com\/link_atualizado",
+	"created_at": "2022-11-01T10:59:33.000000Z",
+	"updated_at": "2022-11-01T12:38:59.000000Z"
+}, {
+	"id": 8,
+	"categoriaId": 1,
+	"titulo": "Como criar uma migration no laravel. 23",
+	"descricao": "Como criar uma migration no Laravel, como definir a base de dados e criar os campos a partir das migrations.",
+	"url": "http:\/\/www.youtube.com\/vdeo42",
+	"created_at": "2022-11-01T17:55:11.000000Z",
+	"updated_at": "2022-11-01T17:55:11.000000Z"
+}]

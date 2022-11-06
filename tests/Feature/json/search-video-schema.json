@@ -1,0 +1,11 @@
+[
+    {
+        "id": 2,
+        "categoriaId": 2,
+        "titulo": "Criar aplicação Laravel",
+        "descricao": "Como criar um projecto em laravel a partir do 0",
+        "url": "www.youtube.com/laravell",
+        "created_at": "2022-11-01T10:37:29.000000Z",
+        "updated_at": "2022-11-01T10:37:30.000000Z"
+    }
+]
