@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PrepareTests;
 use App\Http\Controllers\ApiVideoController;
 
 /*
@@ -17,3 +18,6 @@ use App\Http\Controllers\ApiVideoController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::resource('prepare', PrepareTests::class);

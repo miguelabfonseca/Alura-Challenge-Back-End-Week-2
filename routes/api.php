@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ApiVideoController;
-use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\VideoController;
+use App\Http\Controllers\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('categorias', CategoriasController::class);
-Route::resource('videos', ApiVideoController::class);
-Route::get('/categorias/{id}/videos', [CategoriasController::class, 'videos']);
+Route::resource('categories', CategoriesController::class);
+Route::resource('videos', VideoController::class);
+Route::get('/categories/{id}/videos', [CategoriesController::class, 'videos']);
 #Route::get('/videos/?search={search}', [CategoriasController::class, 'procura']);
