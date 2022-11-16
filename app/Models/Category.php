@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Categoria extends Model
+class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo', 'cor'];
+    protected $fillable = ['title', 'color'];
 
     public function videos()
     {
-        return $this->hasMany(Video::class, 'categoriaId', 'id');
+        return $this->hasMany(Video::class, 'category', 'id');
     }
 
 }
