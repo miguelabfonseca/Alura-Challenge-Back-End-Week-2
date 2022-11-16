@@ -1,6 +1,6 @@
-<p align="center">Alura Challenge Week 1</p>
+<p align="center">Alura Challenge Week 2</p>
 
-## About Alura Challenge Week 1
+## About Alura Challenge Week 2
 
 History
 After some tests with prototypes made by the UX team of a company, the first version of a platform for sharing videos was requested. The platform should allow the user to assemble playlists with links to their favorite videos, separated by categories.
