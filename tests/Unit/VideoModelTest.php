@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\Video;
 
 class VideoModelTest extends TestCase
 {
@@ -20,7 +21,13 @@ class VideoModelTest extends TestCase
             "url" => "http://www.google.pt",
         ];
 
+        $videos = Video::get();
+        $this->assertCount(30, $videos);
+
         $response = $this->json('POST', 'videos', $videoData, ['Accept' => 'application/json']);
+
+        $videos = Video::get();
+        $this->assertCount(31, $videos);
 
         $response->assertStatus(201);
         $array = json_decode($response->getContent(), true);
@@ -46,7 +53,13 @@ class VideoModelTest extends TestCase
 
     public function test_the_delete_of_a_video()
     {
+        $videos = Video::get();
+        $this->assertCount(31, $videos);
+
         $response = $this->json('DELETE', 'videos/31', ['Accept' => 'application/json']);
+        
+        $videos = Video::get();
+        $this->assertCount(30, $videos);
 
         $response->assertStatus(200);
         $array = json_decode($response->getContent(), true);

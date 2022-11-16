@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\Category;
 
 class CategoryTest extends TestCase
 {
@@ -18,7 +19,13 @@ class CategoryTest extends TestCase
             "color" => "#696969",
         ];
 
+        $categories = Category::get();
+        $this->assertCount(10, $categories);
+
         $response = $this->json('POST', 'categories', $categoryData, ['Accept' => 'application/json']);
+
+        $categories = Category::get();
+        $this->assertCount(11, $categories);
 
         $response->assertStatus(201);
         $array = json_decode($response->getContent(), true);
@@ -45,7 +52,13 @@ class CategoryTest extends TestCase
 
     public function test_the_delete_of_a_category()
     {
+        $categories = Category::get();
+        $this->assertCount(11, $categories);
+
         $response = $this->json('DELETE', 'categories/11', ['Accept' => 'application/json']);
+
+        $categories = Category::get();
+        $this->assertCount(10, $categories);
 
         $response->assertStatus(200);
         $array = json_decode($response->getContent(), true);
