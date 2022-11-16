@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class ApiVideoController extends Controller
+class VideoController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
@@ -31,13 +30,13 @@ class ApiVideoController extends Controller
     {
         $validator = Validator::make(
             [
-                'titulo' => $request->titulo,
-                'descricao' => $request->descricao,
+                'title' => $request->title,
+                'description' => $request->description,
                 'url' => $request->url,
             ],
             [
-                'titulo' => 'required|min:1',
-                'descricao' => 'required|min:1',
+                'title' => 'required|min:1',
+                'description' => 'required|min:1',
                 'url' => 'required|url',
             ]
         );
@@ -51,8 +50,8 @@ class ApiVideoController extends Controller
         }
 
         $video = Video::create([
-            'titulo' => $request->titulo,
-            'descricao' => $request->descricao,
+            'title' => $request->title,
+            'description' => $request->description,
             'url' => $request->url,
         ]);
         return response()->json($video->toArray(), 200);
@@ -66,13 +65,13 @@ class ApiVideoController extends Controller
         }
         $validator = Validator::make(
             [
-                'titulo' => $request->titulo,
-                'descricao' => $request->descricao,
+                'title' => $request->title,
+                'description' => $request->description,
                 'url' => $request->url,
             ],
             [
-                'titulo' => 'required|min:1',
-                'descricao' => 'required|min:1',
+                'title' => 'required|min:1',
+                'description' => 'required|min:1',
                 'url' => 'required|url',
             ]
         );
@@ -102,8 +101,8 @@ class ApiVideoController extends Controller
 
     private function search($search)
     {
-        $video = Video::where('titulo', 'like', $search)
-                ->orWhere('descricao', 'like', $search)
+        $video = Video::where('title', 'like', $search)
+                ->orWhere('description', 'like', $search)
                 ->get();
 
         if ($video->count() == 0) {

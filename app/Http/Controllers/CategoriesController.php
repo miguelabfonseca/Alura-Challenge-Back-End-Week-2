@@ -3,37 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
-use App\Models\Categoria;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class CategoriasController extends Controller
+class CategoriesController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(Categoria::get()->toArray() , 200);
+        return response()->json(Category::get()->toArray() , 200);
     }
 
     public function show($id): JsonResponse
     {
-        $categoria = Categoria::find($id);
-        if(!$categoria) {
+        $category = Category::find($id);
+        if(!$category) {
             return response()->json(['status' => 'error', 'message' => 'Category not found!'], 404);
         }
-        return response()->json($categoria->toArray(), 200);
+        return response()->json($category->toArray(), 200);
     }
 
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make(
             [
-                'titulo'  =>  $request->titulo,
-                'cor' => $request->cor,
+                'title'  =>  $request->title,
+                'color' => $request->color,
             ],
             [
-                'titulo'  => 'required|min:1',
-                'cor' => 'required|min:1',
+                'title'  => 'required|min:1',
+                'color' => 'required|min:1',
             ]
         );
 
@@ -45,27 +45,27 @@ class CategoriasController extends Controller
             return response()->json(['status' => 'error', 'message' => $errorMessage], 206);
         }
 
-        $categoria = Categoria::create([
-            'titulo' => $request->titulo,
-            'cor' => $request->cor
+        $category = Category::create([
+            'title' => $request->title,
+            'color' => $request->color
         ]);
-        return response()->json($categoria->toArray(), 201);
+        return response()->json($category->toArray(), 201);
     }
 
     public function update(Request $request, $id): JsonResponse
     {
-        $categoria = Categoria::find($id);
-        if(!$categoria) {
+        $category = Category::find($id);
+        if(!$category) {
             return response()->json(['status' => 'error', 'message' => 'Category not found!'], 404);
         }
         $validator = Validator::make(
             [
-                'titulo'  =>  $request->titulo,
-                'cor' => $request->cor
+                'title'  =>  $request->title,
+                'color' => $request->color
             ],
             [
-                'titulo'  => 'required|min:1',
-                'cor' => 'required|min:1',
+                'title'  => 'required|min:1',
+                'color' => 'required|min:1',
             ]
         );
 
@@ -76,25 +76,25 @@ class CategoriasController extends Controller
             }
             return response()->json(['status' => 'error', 'message' => $errorMessage], 206);
         }
-        $categoria->fill($request->all());
-        $categoria->save();
+        $category->fill($request->all());
+        $category->save();
 
-        return response()->json($categoria->toArray(), 200);
+        return response()->json($category->toArray(), 200);
     }
 
     public function destroy($id): JsonResponse
     {
-        $categoria = Categoria::find($id);
-        if(!$categoria) {
+        $category = Category::find($id);
+        if(!$category) {
             return response()->json(['status' => 'error', 'message' => 'Category not found!'], 404);
         }
-        $categoria->delete();
+        $category->delete();
         return response()->json(['status' => 'ok', 'message' => 'Category deleted with success!'], 200);
     }
 
     public function videos($id)
     {
-        $videos = Video::where('categoriaId', $id)->with('categoria')->get();
+        $videos = Video::where('category', $id)->with('category')->get();
         if($videos->count() == 0)
         {
             return response()->json(['status' => 'error', 'message' => 'No videos found on the selected category!'], 404);
