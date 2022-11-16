@@ -63,7 +63,7 @@ class VideoController extends Controller
             'description' => $request->description,
             'url' => $request->url,
         ]);
-        return response()->json(['video' => $video->toArray(), 'status' => 'ok', 'message' => "Video created"], 200);
+        return response()->json(['video' => $video->toArray(), 'status' => 'ok', 'message' => "Video created"], 201);
     }
 
     public function update(Request $request, $id): JsonResponse
@@ -72,30 +72,26 @@ class VideoController extends Controller
         if (!$video) {
             return response()->json(['status' => 'error', 'message' => 'Video not found!'], 404);
         }
-        $validator = Validator::make(
-            [
-                'title' => $request->title,
-                'description' => $request->description,
-                'url' => $request->url,
-            ],
-            [
-                'title' => 'required|min:1',
-                'description' => 'required|min:1',
-                'url' => 'required|url',
-            ]
-        );
-
-        if ($validator->fails()) {
-            $errorMessage = '';
-            foreach ($validator->errors()->all() as $message) {
-                $errorMessage .= $message . '; ';
-            }
-            return response()->json(['status' => 'error', 'message' => $errorMessage], 206);
+        if($request->title) {
+            $post['title'] = $request->title;
+        } else {
+            $post['title'] = $video->title;
         }
-        $video->fill($request->all());
+        if($request->description) {
+            $post['description'] = $request->description;
+        } else {
+            $post['description'] = $video->description;
+        }
+        if($request->url) {
+            $post['url'] = $request->url;
+        } else {
+            $post['url'] = $video->url;
+        }
+
+        $video->fill($post);
         $video->save();
 
-        return response()->json(['video' => $video->toArray(), 'status' => 'ok', 'message' => "Video created"], 200);
+        return response()->json(['video' => $video->toArray(), 'status' => 'ok', 'message' => "Video updated"], 200);
     }
 
     public function destroy($id): JsonResponse
