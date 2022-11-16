@@ -12,7 +12,8 @@ class CategoriesController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(Category::get()->toArray() , 200);
+        $result = Category::get();
+        return response()->json(['data' => $result->toArray(), 'count' => $result->count(), 'status' => 'ok', 'message' => ''] , 200);
     }
 
     public function show($id): JsonResponse
@@ -21,7 +22,7 @@ class CategoriesController extends Controller
         if(!$category) {
             return response()->json(['status' => 'error', 'message' => 'Category not found!'], 404);
         }
-        return response()->json($category->toArray(), 200);
+        return response()->json(['category' => [$category->toArray()], 'status' => 'ok', 'message' => ''], 200);
     }
 
     public function store(Request $request): JsonResponse
@@ -49,7 +50,7 @@ class CategoriesController extends Controller
             'title' => $request->title,
             'color' => $request->color
         ]);
-        return response()->json($category->toArray(), 201);
+        return response()->json(["category" => [$category->toArray()], "status" => "ok", "message" => "Created successfully"], 201);
     }
 
     public function update(Request $request, $id): JsonResponse
@@ -79,7 +80,7 @@ class CategoriesController extends Controller
         $category->fill($request->all());
         $category->save();
 
-        return response()->json($category->toArray(), 200);
+        return response()->json(['category' => $category->toArray(), "status" => "ok", "message" => "Updated successfully"], 200);
     }
 
     public function destroy($id): JsonResponse
@@ -99,7 +100,7 @@ class CategoriesController extends Controller
         {
             return response()->json(['status' => 'error', 'message' => 'No videos found on the selected category!'], 404);
         }
-        return response()->json($videos->toArray(), 200);
+        return response()->json(['videos' => $videos->toArray(), 'count' => $videos->count(), 'status' => 'ok', 'message' => ''], 200);
     }
 
 

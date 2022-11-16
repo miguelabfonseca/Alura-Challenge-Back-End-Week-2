@@ -12,9 +12,17 @@ class VideoController extends Controller
     public function index(Request $request): JsonResponse
     {
         if ($request->search) {
-            return $this->search('%' . $request->search . '%');
+            $result = Video::where('title', 'like', '%' . $request->search . '%')
+                ->where('description', 'like', '%' . $request->search . '%')
+                ->get();
+            if ($result->count() == 0) {
+                return response()->json(['status' => 'error', 'message' => 'No video was found with the search string!'], 404);
+            }
+
+        } else {
+            $result = Video::get();
         }
-        return response()->json(Video::get()->toArray(), 200);
+        return response()->json(['videos' => $result->toArray(), 'count' => $result->count(), 'status' => 'ok', 'message' => ''], 200);
     }
 
     public function show($id): JsonResponse
@@ -23,7 +31,7 @@ class VideoController extends Controller
         if (!$video) {
             return response()->json(['status' => 'error', 'message' => 'Video not found!'], 404);
         }
-        return response()->json($video->toArray(), 200);
+        return response()->json(['video' => [$video->toArray()], 'status' => 'ok', 'message' => ''], 200);
     }
 
     public function store(Request $request): JsonResponse
@@ -51,10 +59,11 @@ class VideoController extends Controller
 
         $video = Video::create([
             'title' => $request->title,
+            'category' => $request->category,
             'description' => $request->description,
             'url' => $request->url,
         ]);
-        return response()->json($video->toArray(), 200);
+        return response()->json(['video' => $video->toArray(), 'status' => 'ok', 'message' => "Video created"], 200);
     }
 
     public function update(Request $request, $id): JsonResponse
@@ -86,7 +95,7 @@ class VideoController extends Controller
         $video->fill($request->all());
         $video->save();
 
-        return response()->json($video->toArray(), 200);
+        return response()->json(['video' => $video->toArray(), 'status' => 'ok', 'message' => "Video created"], 200);
     }
 
     public function destroy($id): JsonResponse
@@ -102,13 +111,13 @@ class VideoController extends Controller
     private function search($search)
     {
         $video = Video::where('title', 'like', $search)
-                ->orWhere('description', 'like', $search)
-                ->get();
+            ->orWhere('description', 'like', $search)
+            ->get();
 
         if ($video->count() == 0) {
             return response()->json(['status' => 'error', 'message' => 'No video was found with the search string!'], 404);
         }
-        return response()->json($video->toArray(), 200);
+        return response()->json(['video' => $video->toArray(), 'status' => 'ok', 'message' => "Video found"], 200);
     }
 
 }
